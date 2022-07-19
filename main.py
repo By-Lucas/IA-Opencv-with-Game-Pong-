@@ -8,7 +8,6 @@ import mediapipe as mp
 # Camera
 cap = cv2.VideoCapture(0)
 
-
 #Resolução
 cap.set(3, 1280)
 cap.set(4, 720)
@@ -27,9 +26,10 @@ detector = HandDetector(detectionCon=0.8, maxHands=2)
 while True:
     _, img = cap.read()
     img = cv2.flip(img, 1)
+    imgRaw = img.copy()
 
     # Find the hand and this landmarks
-    hands, img = detector.findHands(img) #with draw
+    hands, img = detector.findHands(img, flipType=False) #with draw
 
     # Deverlaying the backgound image
     img = cv2.addWeighted(img, 0.2, imgBackground, 0.8, 0)
