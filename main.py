@@ -1,4 +1,5 @@
 # import libs
+# Instalar todas
 import cv2
 import cvzone
 from cvzone.HandTrackingModule import HandDetector
@@ -24,8 +25,8 @@ detector = HandDetector(detectionCon=0.8, maxHands=2)
 
 # Variaveis
 ballPos = [100, 100] # Posição da bola
-speedX = 15 # velocidade da bola
-speedY = 15 # velocidade da bola
+speedX = 20 # velocidade da bola
+speedY = 20 # velocidade da bola
 gameOver = False
 score = [0, 0]
 
@@ -59,7 +60,7 @@ while True:
             # Se estiver uma mão na direita, vai aparecer a barra lateral direita
             if hand['type'] == "Right":
                 img = cvzone.overlayPNG(img, imageBat2,(1195, y1))
-                if 1195 - 50 < ballPos[0] < 1195 - 30 + w1 and y1 < ballPos[1] < y1 + h1:
+                if 1195 - 55 < ballPos[0] < 1195 - 30 + w1 and y1 < ballPos[1] < y1 + h1:
                     speedX = - speedX
                     ballPos[0] -= 30
                     score[1] += 1
@@ -71,8 +72,8 @@ while True:
     if gameOver:
         img = imageGameOver
         # Resultado geral
-        cv2.putText(img, str(score[1]+score[0]).zfill(2), (585,360), cv2.FONT_HERSHEY_COMPLEX, 
-                2.5,(200, 0, 20),5)
+        cv2.putText(img, str(score[1] + score[0]).zfill(2), (585, 360), cv2.FONT_HERSHEY_COMPLEX, 
+                2.5,(200, 0, 20), 5)
 
     # Se nao fo Game Over, mova a bola
     else:
@@ -90,6 +91,7 @@ while True:
         cv2.putText(img, str(score[0]), (300,650), cv2.FONT_HERSHEY_COMPLEX, 3,(255,255,255),5)
         cv2.putText(img, str(score[1]), (900,650), cv2.FONT_HERSHEY_COMPLEX, 3,(255,255,255),5)
 
+    # Exibir webcam no canto inferior esquerdo
     img[580:700, 20:233] = cv2.resize(imgRaw, (213, 120))
 
     cv2.imshow("Image", img)
@@ -102,8 +104,8 @@ while True:
     # Reiniciar jogo
     if key == ord('r'):
         ballPos = [100, 100] # Posição da bola
-        speedX = 15 # velocidade da bola
-        speedY = 15 # velocidade da bola
+        speedX = 20 # velocidade da bola
+        speedY = 20 # velocidade da bola
         gameOver = False
         score = [0, 0]
         imageGameOver= cv2.imread("Resources/gameOver.png")
